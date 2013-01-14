@@ -10,6 +10,8 @@
 #import "HistoricOperation.h"
 #import "HistoryArrayDelegate.h"
 
+#import "AppViewSwitcher.h"
+
 @interface FirstViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic) IBOutlet UIButton *zeroButton;
@@ -45,7 +47,9 @@
 
 @property (nonatomic) IBOutlet UILabel *display;
 
-@property (nonatomic) id<HistoryArrayDelegate> delegate;
+@property (nonatomic) id<HistoryArrayDelegate, AppViewSwitcher> delegate;
+
+@property (nonatomic) BOOL ignoreTransition;
 
 - (void) initButton:(UIButton*) button tag:(int) tag color:(UIColor*) color title:(NSString*) title;
 

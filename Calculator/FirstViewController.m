@@ -11,7 +11,7 @@
 #import "HistoricOperation.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define tableLines 6
+#define tableLines 8
 #define cellHeight 22
 
 @interface FirstViewController ()
@@ -86,11 +86,11 @@ enum {
     [self initButton:self.mClearButton      tag:MCLEAR          color:[UIColor blackColor]                                  title:@"MC"];
     [self initButton:self.mRecallButton     tag:MRECALL         color:[UIColor blackColor]                                  title:@"MR"];
     
-    /*self.doubleFingerPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleFingerPan:)];
+    self.doubleFingerPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleFingerPan:)];
     self.doubleFingerPan.minimumNumberOfTouches = 2;
     self.doubleFingerPan.maximumNumberOfTouches = 2;
     [self.view addGestureRecognizer:self.doubleFingerPan];
-    self.view.multipleTouchEnabled = YES;*/
+    self.view.multipleTouchEnabled = YES;
     
     self.display.font = [UIFont fontWithName:@"DBLCDTempBlack" size:50.0];
     self.display.textColor = [UIColor blackColor];
@@ -103,6 +103,7 @@ enum {
     [super viewDidAppear:animated];
     [self.bottomOfTape reloadData];
     [self goToBottom];
+    self.ignoreTransition = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -273,37 +274,35 @@ enum {
     return cell;
 }
 
-/*- (void) handleDoubleFingerPan: (UIPanGestureRecognizer *) sender {
-    NSLog(@"Got double finger pan");
+- (void) handleDoubleFingerPan: (UIPanGestureRecognizer *) sender {
     CGPoint translate = [sender translationInView:self.view];
-    
-    CGRect newFrame = self.view.frame;
-    
-    //newFrame.origin.x = translate.x;
-    //newFrame.origin.y = translate.y;
-    
-    self.view.frame = newFrame;
-    
-    NSLog([[NSString alloc] initWithFormat:@"%g %g", translate.x, translate.y]);
+
+    NSLog([NSString stringWithFormat:@"%g %g", translate.x, translate.y]);
     if(translate.y > 60){
-        CATransition *transition = [CATransition animation];
-        transition.duration = .4f;
-        transition.type = kCATransitionPush;
-        transition.subtype = kCATransitionFromBottom;
-        [self.navigationController.view.layer addAnimation:transition
-                                                    forKey:kCATransition];
-        SecondViewController *secondViewController = [[SecondViewController alloc] init];
+        sender.enabled = NO;
+        [self.delegate goToCurrentTape];
         
-        [self presentViewController:secondViewController animated:NO completion:NULL];
+    } else if(translate.y < -60){
+        [self.delegate goToSavedTapes];
+    }
+        //CATransition *transition = [CATransition animation];
+        //transition.duration = .4f;
+        //transition.type = kCATransitionPush;
+        //transition.subtype = kCATransitionFromBottom;
+        //[self.navigationController.view.layer addAnimation:transition
+                                                    //forKey:kCATransition];
+        //SecondViewController *secondViewController = [[SecondViewController alloc] init];
+        
+        //[self.delegate presentViewController:self.delegate.secondViewController animated:NO completion:NULL];
         //self.tabBarController.selectedIndex = 1;
         //UIView *myView = [[UIView alloc] init];
         //self.view = myView;
-    }
+    
     
     //if(sender.state == UIGestureRecognizerStateEnded){
     //    newFrame.origin.y = 0;
     //    self. = newFrame;
     //}
-}*/
+}
 
 @end

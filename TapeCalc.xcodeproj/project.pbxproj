@@ -97,6 +97,7 @@
 		7ACF4F0F16768B2300AD0FBE /* HistoricOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoricOperation.h; sourceTree = "<group>"; };
 		7ACF4F1016768B2300AD0FBE /* HistoricOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoricOperation.m; sourceTree = "<group>"; };
 		7ACFF9DF16A0DA570091BEA2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7ADCB36816A10EBF00DD7DAF /* AppViewSwitcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppViewSwitcher.h; sourceTree = "<group>"; };
 		7AE4F389169F938D00E32A0A /* SecondDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondDetailViewController.h; sourceTree = "<group>"; };
 		7AE4F38A169F938D00E32A0A /* SecondDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondDetailViewController.m; sourceTree = "<group>"; };
 		7AE4F38B169F938D00E32A0A /* SecondDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondDetailViewController.xib; sourceTree = "<group>"; };
@@ -170,6 +171,7 @@
 		7A608D42169D1654004B910A /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				7ADCB36816A10EBF00DD7DAF /* AppViewSwitcher.h */,
 				7AFAC07E168FBBE300F716DE /* HistoryArrayDelegate.h */,
 				7ACF4ECF167689F000AD0FBE /* AppDelegate.h */,
 				7ACF4ED0167689F000AD0FBE /* AppDelegate.m */,

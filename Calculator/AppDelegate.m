@@ -22,32 +22,31 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    FirstViewController *viewController1;
-    SecondViewController *viewController2;
-    ThirdViewController *viewController3;
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        viewController1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController_iPhone" bundle:nil];
-        viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController_iPhone" bundle:nil];
-        viewController3 = [[ThirdViewController alloc] initWithNibName:@"ThirdViewController" bundle:nil];
-    } else {
-        viewController1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController_iPad" bundle:nil];
-        viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController_iPad" bundle:nil];
-    }
+    //if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    self.firstViewController = [[FirstViewController alloc] initWithNibName:@"FirstViewController" bundle:nil];
+    self.secondViewController = [[SecondViewController alloc] initWithNibName:@"SecondViewController" bundle:nil];
+    self.thirdViewController = [[ThirdViewController alloc] initWithNibName:@"ThirdViewController" bundle:nil];
+    
+    self.navController = [[UINavigationController alloc] initWithRootViewController:self.firstViewController];
+    //} else {
+    //    viewController1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController_iPad" bundle:nil];
+    //    viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController_iPad" bundle:nil];
+    //}
     
     //self.navController = [[UINavigationController alloc] initWithRootViewController:self.firstViewController];
-    UINavigationController *navViewController1 = [[UINavigationController alloc] initWithRootViewController:viewController1];
-    UINavigationController *navViewController2 = [[UINavigationController alloc] initWithRootViewController:viewController2];
-    UINavigationController *navViewController3 = [[UINavigationController alloc] initWithRootViewController:viewController3];
+    //UINavigationController *navViewController1 = [[UINavigationController alloc] initWithRootViewController:viewController1];
+    //UINavigationController *navViewController2 = [[UINavigationController alloc] initWithRootViewController:viewController2];
+    //UINavigationController *navViewController3 = [[UINavigationController alloc] initWithRootViewController:viewController3];
     
-    viewController1.tabBarItem.image = [UIImage imageNamed:@"Calc.png"];
-    viewController2.tabBarItem.image = [UIImage imageNamed:@"Tape.png"];
-    viewController3.tabBarItem.image = [UIImage imageNamed:@"Folder.png"];
+    //viewController1.tabBarItem.image = [UIImage imageNamed:@"Calc.png"];
+    //viewController2.tabBarItem.image = [UIImage imageNamed:@"Tape.png"];
+    //viewController3.tabBarItem.image = [UIImage imageNamed:@"Folder.png"];
     
-    self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[navViewController1, navViewController2, navViewController3];
-    self.window.rootViewController = self.tabBarController;
+    //self.tabBarController = [[UITabBarController alloc] init];
+    //self.tabBarController.viewControllers = @[navViewController1, navViewController2, navViewController3];
+    //self.window.rootViewController = self.tabBarController;
     
-    //self.window.rootViewController = self.navController;
+    self.window.rootViewController = self.firstViewController;
     
     [self.window makeKeyAndVisible];
     
@@ -78,9 +77,11 @@
         self.history = theHistory;
     }
     
-    viewController1.delegate = self;
-    viewController2.delegate = self;
-    viewController3.delegate = self;
+    self.firstViewController.delegate = self;
+    
+    //viewController1.delegate = self;
+    //viewController2.delegate = self;
+    //viewController3.delegate = self;
 
     return YES;
 }
@@ -125,19 +126,27 @@
     return _savedHistories;
 }
 
-
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
+- (void) goToCalculator{
+    NSLog(@"Going To Calculator");
 }
-*/
 
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed
-{
+- (void) goToCurrentTape{
+    if(self.firstViewController.ignoreTransition == NO){
+        NSLog(@"Going To Current Tape");
+        CATransition *transition = [CATransition animation];
+        transition.duration = .4f;
+        transition.type = kCATransitionPush;
+        transition.subtype = kCATransitionFromBottom;
+        [self.firstViewController.view.layer addAnimation:transition forKey:kCATransitionPush];
+        [self.firstViewController.navigationController pushViewController:self.secondViewController animated:NO];
+        //[self.firstViewController.view addSubview:self.secondViewController.view];
+        self.firstViewController.ignoreTransition = YES;
+    }
+
 }
-*/
+
+- (void) goToSavedTapes{
+    NSLog(@"Going To Saved Tapes");
+}
 
 @end
